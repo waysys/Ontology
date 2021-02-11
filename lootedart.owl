@@ -1,0 +1,1754 @@
+@prefix : <http://waysysweb.com/ontolgoy/lootedart#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://waysysweb.com/ontolgoy/lootedart#> .
+
+<http://waysysweb.com/ontolgoy/lootedart#> rdf:type owl:Ontology ;
+                                            rdfs:comment "This ontology tracks information about art looted by the Nazis during World War II.  It also describes what happened to the art after the war." ;
+                                            rdfs:seeAlso "Jonathan Petropoulos, Goring's Man in Paris, ISBN: 0300251920" ;
+                                            owl:versionInfo "31-Jan-2021" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://waysysweb.com/ontolgoy/lootedart#agentFor
+:agentFor rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :participant ;
+          rdfs:range :Party ;
+          rdfs:comment "Indicates the party for whom the subject is an agent." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#atDate
+:atDate rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasTime ;
+        rdf:type owl:FunctionalProperty ;
+        owl:propertyDisjointWith :ending ;
+        rdfs:comment "This property represents the point in time of an interaction." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#auctioneer
+:auctioneer rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :participant ;
+            rdfs:range :Person .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#beginning
+:beginning rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasTime ;
+           rdf:type owl:FunctionalProperty ;
+           owl:propertyDisjointWith :ending ;
+           rdfs:comment "The beginning of a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#buyer
+:buyer rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :participant ;
+       rdfs:range :Party .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#city
+:city rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :located ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:range :City ;
+      rdfs:comment "The city where a thing is located." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#conducted
+:conducted rdf:type owl:ObjectProperty ;
+           owl:inverseOf :conductedBy ;
+           rdfs:range [ rdf:type owl:Class ;
+                        owl:unionOf ( :Event
+                                      :Operation
+                                    )
+                      ] ;
+           rdfs:comment "A party conducted and operation" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#conductedBy
+:conductedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty ;
+             rdfs:range :Party ;
+             rdfs:comment "A party operation is conducted by a party." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#conductedTheft
+:conductedTheft rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#country
+:country rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :located ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:range :Country ;
+         rdfs:comment "The country where a thing is located." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#created
+:created rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         owl:inverseOf :creator ;
+         rdfs:range [ rdf:type owl:Restriction ;
+                      owl:onProperty :creator ;
+                      owl:someValuesFrom :ArtWork
+                    ] ;
+         rdfs:comment "A person created a work of art." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#creator
+:creator rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:range [ rdf:type owl:Restriction ;
+                      owl:onProperty :creator ;
+                      owl:someValuesFrom :Person
+                    ] .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#employed
+:employed rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          owl:inverseOf :employedBy .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#employedBy
+:employedBy rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :participant ;
+            rdfs:range :Party ;
+            rdfs:comment "Reference from an employment to the employer." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ending
+:ending rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasTime ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:comment "The end of a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#founded
+:founded rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :participant ;
+         rdfs:range :Organization ;
+         rdfs:comment "A party founds an organization." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#hasDuration
+:hasDuration rdf:type owl:ObjectProperty ;
+             rdfs:range :Duration ;
+             rdfs:comment "HasDuration specifies a duration during which an interaction is in effect." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#hasEmployment
+:hasEmployment rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:range :Employment ;
+               rdfs:comment "The reference to an employment." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#hasOwnership
+:hasOwnership rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:range :Ownership ;
+              rdfs:comment "A party has an ownerhip relation." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#hasParts
+:hasParts rdf:type owl:ObjectProperty ;
+          owl:inverseOf :partOf ;
+          rdfs:range :Organization ;
+          rdfs:comment "An organization may have subsidiaries, divisions, or other parts." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#hasTime
+:hasTime rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:range :PointInTime ;
+         rdfs:comment "This property is a category of properties that represent a point in time." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#knownFor
+:knownFor rdf:type owl:ObjectProperty ;
+          rdfs:comment "A thing is known for another thing." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#leader
+:leader rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :participant ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:range :Person ;
+        rdfs:comment "The person who directs an interaction or event." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#located
+:located rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:comment "A class of properties related to where a thing is.  This is functional since a thing cannot be in two places at once." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#memberOf
+:memberOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :participant ;
+          rdfs:range :Party ;
+          rdfs:comment "A person is a member of an organization." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#nationality
+:nationality rdf:type owl:ObjectProperty ;
+             rdfs:range :Country ;
+             rdfs:comment "The nationality of a thing is the country of origin.  For a person, it is the country of birth.  For an organizatioin, it is the country where the organization is founded.  For an art work, it is the country where it was created." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#occupation
+:occupation rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:range :Occupation ;
+            rdfs:comment "The occupation describes the type of work a person performs.  An occupation may carry a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#owner
+:owner rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :participant ;
+       rdfs:range :Party ;
+       rdfs:comment "The party that owns something." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#owns
+:owns rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf owl:topObjectProperty ;
+      rdfs:range :ArtWork ;
+      rdfs:comment "The act, state, or right of possessing a work of art.." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#partOf
+:partOf rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdf:type owl:TransitiveProperty ;
+        rdfs:range :Organization ;
+        rdfs:comment "An organization is part of another organization." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#participant
+:participant rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:comment "A person who particpates in an event." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#perpetrator
+:perpetrator rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :participant ;
+             rdfs:range :Party ;
+             rdfs:comment "A perpetrator conducts a theft." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#propertyDisposition
+:propertyDisposition rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#reportedTo
+:reportedTo rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:range :Person ;
+            rdfs:comment "The person to whom a person reports as part of employment." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#role
+:role rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf owl:topObjectProperty ;
+      rdfs:range :Role ;
+      rdfs:comment "Role is the position a person occupies in an employment." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#sales
+:sales rdf:type owl:ObjectProperty ;
+       rdfs:range :Sale ;
+       rdfs:comment "Sales made at an auction." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#seller
+:seller rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :participant ;
+        rdfs:range :Party ;
+        rdfs:comment "A seller is a party that particpates in a transaction by relinquishing ownership of an art work." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#spouse
+:spouse rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdf:type owl:SymmetricProperty ;
+        rdfs:range :Person ;
+        rdfs:comment "The person married to a person." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#started
+:started rdf:type owl:ObjectProperty ;
+         owl:inverseOf :startedBy ;
+         rdfs:range :ArtCollection ;
+         rdfs:comment "A party starts an art collection." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#startedBy
+:startedBy rdf:type owl:ObjectProperty ;
+           rdfs:comment "An art collection is started by a party." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#thingOffered
+:thingOffered rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :propertyDisposition ;
+              rdfs:range :ArtWork ;
+              rdfs:comment "An item offered for sale." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#thingSold
+:thingSold rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :propertyDisposition ;
+           rdfs:range :ArtWork ;
+           rdfs:comment "The thing sold is an art work." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#thingStolen
+:thingStolen rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :propertyDisposition ;
+             rdfs:range :ArtCollection .
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty rdfs:comment "" ,
+                                   "A party started an art collection." .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://waysysweb.com/ontolgoy/lootedart#alternateName
+:alternateName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:range xsd:string .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#month
+:month rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range [ rdf:type rdfs:Datatype ;
+                    owl:onDatatype xsd:positiveInteger ;
+                    owl:withRestrictions ( [ xsd:minInclusive "1"^^xsd:positiveInteger
+                                           ]
+                                           [ xsd:maxInclusive "12"^^xsd:positiveInteger
+                                           ]
+                                         )
+                  ] ;
+       rdfs:comment "The month is the month portion of a date." ;
+       rdfs:label "month" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#name
+:name rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:range xsd:string .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#nameFirst
+:nameFirst rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:range xsd:string ;
+           rdfs:comment "The first name of a person." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#nameLast
+:nameLast rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:string ;
+          rdfs:comment "The last name of a person." ;
+          rdfs:label "nameLast" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#nameMaiden
+:nameMaiden rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#nameMiddle
+:nameMiddle rdf:type owl:DatatypeProperty .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#purpose
+:purpose rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:range xsd:string .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#rank
+:rank rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:comment "Military rank" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#title
+:title rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#year
+:year rdf:type owl:DatatypeProperty ;
+      rdfs:range [ rdf:type rdfs:Datatype ;
+                   owl:onDatatype xsd:positiveInteger ;
+                   owl:withRestrictions ( [ xsd:minInclusive "1100"^^xsd:positiveInteger
+                                          ]
+                                          [ xsd:maxInclusive "2100"^^xsd:positiveInteger
+                                          ]
+                                        )
+                 ] ;
+      rdfs:comment "The year is the year portion of a date." ;
+      rdfs:label "year" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#yearBirth
+:yearBirth rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:onDatatype xsd:positiveInteger ;
+                        owl:withRestrictions ( [ xsd:minInclusive "1100"^^xsd:positiveInteger
+                                               ]
+                                               [ xsd:maxInclusive "2100"^^xsd:positiveInteger
+                                               ]
+                                             )
+                      ] ;
+           rdfs:comment "The year a person was born." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#yearDeath
+:yearDeath rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:onDatatype xsd:positiveInteger ;
+                        owl:withRestrictions ( [ xsd:minInclusive "1100"^^xsd:positiveInteger
+                                               ]
+                                               [ xsd:maxInclusive "2100"^^xsd:positiveInteger
+                                               ]
+                                             )
+                      ] ;
+           rdfs:comment "The year a person died." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#yearDissolved
+:yearDissolved rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:onDatatype xsd:positiveInteger ;
+                            owl:withRestrictions ( [ xsd:minInclusive "1100"^^xsd:positiveInteger
+                                                   ]
+                                                   [ xsd:maxInclusive "2100"^^xsd:positiveInteger
+                                                   ]
+                                                 )
+                          ] ;
+               rdfs:comment "The year an organization was disbanded." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#yearFounded
+:yearFounded rdf:type owl:DatatypeProperty ;
+             rdfs:range [ rdf:type rdfs:Datatype ;
+                          owl:onDatatype xsd:positiveInteger ;
+                          owl:withRestrictions ( [ xsd:minInclusive "1100"^^xsd:positiveInteger
+                                                 ]
+                                                 [ xsd:maxInclusive "2100"^^xsd:positiveInteger
+                                                 ]
+                                               )
+                        ] ;
+             rdfs:comment "The year an organization was organized." .
+
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdfs:comment "The name of the position in an organization." .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://waysysweb.com/ontolgoy/lootedart#Agent
+:Agent rdf:type owl:Class ;
+       rdfs:subClassOf :BusinessDealing ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :agentFor ;
+                         owl:someValuesFrom :Party
+                       ] ;
+       rdfs:comment "An agent is a person who acts on behalf of another peron or group." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArtCollection
+:ArtCollection rdf:type owl:Class ;
+               rdfs:subClassOf :Group ;
+               rdfs:comment "An art collection is a group of art works that belong to a party." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArtDealership
+:ArtDealership rdf:type owl:Class ;
+               rdfs:subClassOf :Business .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArtWork
+:ArtWork rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty :creator ;
+                           owl:someValuesFrom :Person
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :name ;
+                           owl:someValuesFrom xsd:string
+                         ] ;
+         rdfs:comment """An item of art work is the expression or application of human creative skill and imagination, typically in a visual form such as painting or sculpture, producing works to be appreciated primarily for their beauty or emotional power.
+
+Art works have a creator.""" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Auction
+:Auction rdf:type owl:Class ;
+         rdfs:subClassOf :Event .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Business
+:Business rdf:type owl:Class ;
+          rdfs:subClassOf :Organization .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#BusinessDealing
+:BusinessDealing rdf:type owl:Class ;
+                 rdfs:subClassOf :Relation ;
+                 rdfs:comment "A business dealing is the relation of two parties that transact business over a period of time." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#City
+:City rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Location
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :country ;
+                                                   owl:someValuesFrom :Country
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :name ;
+                                                   owl:someValuesFrom xsd:string
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ;
+      rdfs:comment "A city is a town, borough, or city in a country." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Country
+:Country rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Class ;
+                               owl:oneOf ( :AT
+                                           :DE
+                                           :FR
+                                           :GB
+                                           :IT
+                                           :LI
+                                           :US
+                                         )
+                             ] ;
+         rdfs:subClassOf :Location ;
+         rdfs:comment "A country is a geographical location with its own government." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Duration
+:Duration rdf:type owl:Class ;
+          rdfs:subClassOf :Timing ;
+          rdfs:comment "A duration in a period of time between two point in time." ;
+          rdfs:label "Duration" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Employment
+:Employment rdf:type owl:Class ;
+            rdfs:subClassOf :Relation ;
+            rdfs:comment "Employment is a type of interaction in which a person works for an employer (Party).  Employment has a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Event
+:Event rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :atDate ;
+                         owl:someValuesFrom :PointInTime
+                       ] ;
+       rdfs:comment "An event is an occurrance of a thing at a point in time." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Family
+:Family rdf:type owl:Class ;
+        rdfs:subClassOf :Party .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#GovernmentOrganization
+:GovernmentOrganization rdf:type owl:Class ;
+                        rdfs:subClassOf :Organization .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Group
+:Group rdf:type owl:Class ;
+       rdfs:comment "A group is a collection of things." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Location
+:Location rdf:type owl:Class ;
+          rdfs:comment "A location is a geographical area." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#MilitaryOrganization
+:MilitaryOrganization rdf:type owl:Class ;
+                      rdfs:subClassOf :Organization .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Museum
+:Museum rdf:type owl:Class ;
+        rdfs:subClassOf :Organization .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Network
+:Network rdf:type owl:Class ;
+         rdfs:subClassOf :Relation ;
+         rdfs:comment "A network is an informal association of parties that exchange information and transact business over a period of time.  A network may be centered in a particular city." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Occupation
+:Occupation rdf:type owl:Class ;
+            rdfs:comment "An occupation is a type of work a person performs.  It may have a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Operation
+:Operation rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Relation
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :conductedBy ;
+                                                        owl:someValuesFrom :Party
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:comment "An organizational operation is an activity or project conducted over a period of time by a party." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Organization
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf :Party ;
+              rdfs:comment "An organization is a body of persons with a particular purpose." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Ownership
+:Ownership rdf:type owl:Class ;
+           rdfs:subClassOf :Relation ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :owner ;
+                             owl:someValuesFrom :Party
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :owns ;
+                             owl:someValuesFrom :ArtWork
+                           ] ;
+           rdfs:comment "Ownership is the combination of an owner, a thing that is owned, and a time period of ownership." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Painting
+:Painting rdf:type owl:Class ;
+          rdfs:subClassOf :ArtWork .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Party
+:Party rdf:type owl:Class ;
+       rdfs:comment "A party is a person, family, or organization.  A party can participate in a variety of relationships." ;
+       rdfs:label "Party" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Person
+:Person rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Party
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :nameFirst ;
+                                                     owl:someValuesFrom xsd:string
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :nameLast ;
+                                                     owl:someValuesFrom xsd:string
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:comment "A person is a human being that can particpate in a variety of relationships." ;
+        rdfs:label "Person" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Place
+:Place rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :Location
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :city ;
+                                                    owl:someValuesFrom :City
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:comment "A place is somewhere identified by a name and city," .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#PointInTime
+:PointInTime rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :Timing
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :month ;
+                                                          owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                               owl:onDatatype xsd:positiveInteger ;
+                                                                               owl:withRestrictions ( [ xsd:minInclusive "1"^^xsd:positiveInteger
+                                                                                                      ]
+                                                                                                    )
+                                                                             ]
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :month ;
+                                                          owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                               owl:onDatatype xsd:positiveInteger ;
+                                                                               owl:withRestrictions ( [ xsd:maxInclusive "12"^^xsd:positiveInteger
+                                                                                                      ]
+                                                                                                    )
+                                                                             ]
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:comment "A point in time.  This class is purposely inprecise, since the exact date is not necessarily known." ;
+             rdfs:label "Point In Time" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#PoliticalParty
+:PoliticalParty rdf:type owl:Class ;
+                rdfs:subClassOf :Organization ;
+                rdfs:comment "A political party is a group of persons organized to acquire and exercise political power." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Publisher
+:Publisher rdf:type owl:Class ;
+           rdfs:subClassOf :Business .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Relation
+:Relation rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :beginning ;
+                                                       owl:someValuesFrom :PointInTime
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :ending ;
+                                                       owl:someValuesFrom :PointInTime
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
+          rdfs:comment "A relation represents a period of time in which a party has an interation with another party.  An interaction has a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Role
+:Role rdf:type owl:Class ;
+      rdfs:comment "A role is the position or  responsibility that a person performs in an organization or operation." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Sale
+:Sale rdf:type owl:Class ;
+      rdfs:subClassOf :Transaction ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :buyer ;
+                        owl:someValuesFrom :Party
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :seller ;
+                        owl:someValuesFrom :Party
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :thingSold ;
+                        owl:someValuesFrom :ArtWork
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :thingSold ;
+                        owl:allValuesFrom :ArtWork
+                      ] ;
+      rdfs:comment "A sale is a transaction involving an art work." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Theft
+:Theft rdf:type owl:Class ;
+       rdfs:subClassOf :Transaction ;
+       rdfs:comment "A theft is the unlawful transfer of a thng from the owner to looter." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Timing
+:Timing rdf:type owl:Class ;
+        rdfs:comment "Things related to dates." ;
+        rdfs:label "Timing" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Transaction
+:Transaction rdf:type owl:Class ;
+             rdfs:subClassOf :Event ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :participant ;
+                               owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Party
+                             ] ;
+             rdfs:comment "A transaction is an event involving two or more participants." .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://waysysweb.com/ontolgoy/lootedart#ALIU
+:ALIU rdf:type owl:NamedIndividual ,
+               :GovernmentOrganization ;
+      :partOf :OSS ;
+      :alternateName "ALIU" ,
+                     "ORION" ;
+      :name "Art Looting Investigation Unit" ;
+      :yearDissolved 1946 ;
+      :yearFounded 1944 ;
+      rdfs:comment "It will be the primary mission of the Art Looting Investigation Unit to collect and disseminate such information bearing on the looting, confiscation and transfer of the enemy of art properties in Europe, and on individual organizations involved in such operations or transactions, as will be of direct aid to the United States agencies empowered to effect restitution of such properties and prosecution of war criminals." ;
+      rdfs:seeAlso "https://catalog.archives.gov/id/10475534" ,
+                   "https://digitalworks.union.edu/theses/298/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#AT
+:AT rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ActingDirector
+:ActingDirector rdf:type owl:NamedIndividual ,
+                         :Role ;
+                :role :ActingDirector .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Actress
+:Actress rdf:type owl:NamedIndividual ,
+                  :Occupation .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#AgentAdolphHitler
+:AgentAdolphHitler rdf:type owl:NamedIndividual ,
+                            :Agent ;
+                   :agentFor :Hitler_Adolph ;
+                   :participant :Dietrich_Maria ;
+                   rdfs:comment "Maria Dietrich was Hitler's most prolific agent." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArbeitsgruppeLouvre
+:ArbeitsgruppeLouvre rdf:type owl:NamedIndividual ,
+                              :GovernmentOrganization ;
+                     :nationality :DE ;
+                     :partOf :ERR ;
+                     :alternateName "Working Group Louvre" ;
+                     :name "Arbeitsgruppe Louvre" ;
+                     rdfs:comment "The function of this unit was the methodical preparation for transport to Germany of all works of art received through confiscation, and a comprehensive inventory thereof. At the outset, this group comprised Doctors SCHIEDLAUSKY, WIRTH, ESSER, JERCHEL, KUNTZE, and several research assistants." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArtCritic
+:ArtCritic rdf:type owl:NamedIndividual ,
+                    :Occupation ;
+           rdfs:comment "The occupation of writing about works of art." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArtDealer
+:ArtDealer rdf:type owl:NamedIndividual ,
+                    :Occupation ;
+           rdfs:comment "The occupation of buying and selling art." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ArtHistorian
+:ArtHistorian rdf:type owl:NamedIndividual ,
+                       :Occupation ;
+              rdfs:comment "A person who researches the history of art." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Auctioneer
+:Auctioneer rdf:type owl:NamedIndividual ,
+                     :Role .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Behr_Kurt_von
+:Behr_Kurt_von rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :hasEmployment :EmploymentBehr ;
+               :nationality :DE ;
+               :occupation :ArtHistorian ,
+                           :CivilServant ;
+               :nameFirst "Kurt von" ;
+               :nameLast "Behr" ;
+               :title "Dr." ;
+               :yearBirth 1890 ;
+               :yearDeath 1945 ;
+               rdfs:comment "Baron Kurt von Behr was the manager of ERR operations in the west and later the chief of the notorious M-Aktion, in which the home furnishings of Jews in France were confiscated and shipped to the Reich." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Borchers_Walter
+:Borchers_Walter rdf:type owl:NamedIndividual ,
+                          :Person ;
+                 :hasEmployment :EmploymentBorchersArbeitsgruppeLouvre ,
+                                :EmploymentBorchersERR ,
+                                :EmploymentBorchersOsnabruck ,
+                                :EmploymentBorchersStettin ;
+                 :nationality :DE ;
+                 :occupation :ArtHistorian ;
+                 :nameFirst "Walter" ;
+                 :nameLast "Borchers" ;
+                 :title "Dr." ;
+                 :yearBirth 1906 ;
+                 :yearDeath 1980 ;
+                 rdfs:comment "Borchers, Dr Walter. Schloss Kogl, Attergau. Leading art historian attached to the ERR staff in Paris. Directed Arbeitsgruppe Louvre. Under house arrest at Kogl, Attergau, summer 1945." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#BritishMFAA
+:BritishMFAA rdf:type owl:NamedIndividual ,
+                      :MilitaryOrganization ;
+             :nationality :GB ;
+             :partOf :MFAA .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CH
+:CH rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Chief
+:Chief rdf:type owl:NamedIndividual ,
+                :Role .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CivilServant
+:CivilServant rdf:type owl:NamedIndividual ,
+                       :Occupation ;
+              rdfs:comment "The occupation of working in the civil service of a government organization." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Clarke_Joy
+:Clarke_Joy rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :spouse :Behr_Kurt_von ;
+            :alternateName "Joy Clarke" ;
+            :nameFirst "Joyce von" ;
+            :nameLast "Behr" ;
+            :yearBirth 1896 ;
+            :yearDeath 1945 ;
+            rdfs:comment "The wife of Kurt von Behr.  She committed suicide with Kurt in 1945." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CoDirector
+:CoDirector rdf:type owl:NamedIndividual ,
+                     :Role .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CollectionSchloss
+:CollectionSchloss rdf:type owl:NamedIndividual ,
+                            :ArtCollection ;
+                   :owner :FamilySchloss ;
+                   :name "Schloss Collection" ;
+                   rdfs:comment "Regarded as one of the last great Dutch art collections to be assembled in 19th century France, the Schloss Collection was curated by internationally renowned French art collector, Adolphe Schloss and contained many paintings from Dutch and Flemish masters including Rubens, Rembrandt, and Ruysdael. It also became known as one of the best examples of acquisition for Hitler’s Führermuseum by forced sale during World War II." ;
+                   rdfs:seeAlso "https://unwritten-record.blogs.archives.gov/2015/11/17/the-lost-paintings-the-schloss-art-collection/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Cooper_Douglas
+:Cooper_Douglas rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :hasEmployment :EmploymentCooperMFAA1944 ,
+                               :EmploymentCooperMFAA1945 ;
+                :nationality :GB ;
+                :occupation :ArtHistorian ;
+                :nameFirst "Douglas" ;
+                :nameLast "Cooper" ;
+                :rank "Squadron Leader" ;
+                :yearBirth 1911 ;
+                :yearDeath 1984 ;
+                rdfs:comment """British art critic and collector, Douglas Cooper was born into a wealthy family in London in 1911. He was educated at Cambridge, Marburg and the Sorbonne before coming into a large inheritance at the age of twenty-one. While he began his career as an art dealer and co-owner of the Mayor Gallery in London, he later decided to become an art historian and collector. By the time World War II had engulfed Europe, he had amassed a collection of over 100 Cubist works. His grand collection included works by Juan Gris, Georges Braque, Fernand Léger, and Pablo Picasso.
+
+Ineligible for active service in the British Army due to an eye injury, Cooper joined an ambulance unit in Paris. Tasked with moving the wounded through treacherous territory to safety in Bordeaux, he and his co-driver, C. Denis Freeman, detailed their experiences in a book entitled The Road to Bordeaux(1940). He later joined Royal Air Force Intelligence and was sent to Cairo to interrogate prisoners of war. By November 1944 he had arranged a transfer to the MFAA in London, where he interrogated prisoners of war as part of his pursuit of looted works of art. He was then assigned to the Control Commission for Germany, where he served as Acting Director of the British MFAA in May 1945. His strong investigative skills, combined with his intimate knowledge of European dealers and collections, made him a valuable recruit for MFAA service.""" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Curator
+:Curator rdf:type owl:NamedIndividual ,
+                  :Role ;
+         rdfs:comment "A public sale in which goods or property are sold to the highest bidder." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#DE
+:DE rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Dietrich_Maria
+:Dietrich_Maria rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :nationality :DE ;
+                :occupation :ArtDealer ;
+                :nameFirst "Maria" ;
+                :nameLast "Dietrich" ;
+                :yearBirth 1892 ;
+                :yearDeath 1971 ;
+                rdfs:comment "Dietrich, Frau Maria Almas. Munich, Gustav Freytagstr 5. Art dealer; personal friend of Hitler, and for a time his principal buyer of works of art. One of the most important purchasing agents for Linz. Was under house arrest at Grafing, Bavaria, autumn 1945." ;
+                rdfs:seeAlso "https://www.lootedart.com/MVI3RM469661" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Director
+:Director rdf:type owl:NamedIndividual ,
+                   :Role .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ERR
+:ERR rdf:type owl:NamedIndividual ,
+              :GovernmentOrganization ;
+     :nationality :DE ;
+     :partOf :NaziParty ;
+     :alternateName "ERR" ,
+                    "Reichsleiter Rosenberg Taskforce" ;
+     :name "Einsatzstab Reichsleiter Rosenberg" ;
+     :yearDissolved 1945 ;
+     :yearFounded 1940 ;
+     rdfs:comment "Reichsleiter Rosenberg Taskforce was a Nazi Party organization dedicated to appropriating cultural property during World War II." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentBehr
+:EmploymentBehr rdf:type owl:NamedIndividual ,
+                         :Employment ;
+                :beginning <http://waysysweb.com/ontolgoy/lootedart#1940_07> ;
+                :city :Paris ;
+                :employedBy :ERR ;
+                :ending <http://waysysweb.com/ontolgoy/lootedart#1945_04> ;
+                :role :Chief ;
+                rdfs:comment "Details of Kurt von Behr's employment at the ERR." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentBorchersArbeitsgruppeLouvre
+:EmploymentBorchersArbeitsgruppeLouvre rdf:type owl:NamedIndividual ,
+                                                :Employment ;
+                                       :beginning <http://waysysweb.com/ontolgoy/lootedart#1940_07> ;
+                                       :city :Paris ;
+                                       :employedBy :ArbeitsgruppeLouvre ;
+                                       :ending <http://waysysweb.com/ontolgoy/lootedart#1943_01> ;
+                                       :role :Staff ;
+                                       rdfs:comment "Information about employment of Walter Borchers at Arbeitsgruppe Louvre." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentBorchersERR
+:EmploymentBorchersERR rdf:type owl:NamedIndividual ,
+                                :Employment ;
+                       :beginning <http://waysysweb.com/ontolgoy/lootedart#1943_01> ;
+                       :city :Paris ;
+                       :employedBy :ERR ;
+                       :ending <http://waysysweb.com/ontolgoy/lootedart#1944_12> ;
+                       :role :CoDirector ;
+                       rdfs:comment "Walter Borchers became the effective co-direvtor, with Lohse, of the ERR in Paris in 1943-1944." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentBorchersOsnabruck
+:EmploymentBorchersOsnabruck rdf:type owl:NamedIndividual ,
+                                      :Employment ;
+                             :beginning <http://waysysweb.com/ontolgoy/lootedart#1946_01> ;
+                             :city :Osnabruck ;
+                             :employedBy :MuseumOfCulturalHistory ;
+                             :ending <http://waysysweb.com/ontolgoy/lootedart#1970_12> ;
+                             :role :Director .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentBorchersStettin
+:EmploymentBorchersStettin rdf:type owl:NamedIndividual ,
+                                    :Employment ;
+                           :city :Stettin ;
+                           :employedBy :StettinCityMuseum ;
+                           :ending <http://waysysweb.com/ontolgoy/lootedart#1940_07> ;
+                           :role :Curator .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentCooperMFAA1944
+:EmploymentCooperMFAA1944 rdf:type owl:NamedIndividual ,
+                                   :Employment ;
+                          :beginning <http://waysysweb.com/ontolgoy/lootedart#1944_11> ;
+                          :employedBy :BritishMFAA ;
+                          :ending <http://waysysweb.com/ontolgoy/lootedart#1945_05> ;
+                          rdfs:comment "Douglas Cooper was a member of the MFAA from 1944 to 1946." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentCooperMFAA1945
+:EmploymentCooperMFAA1945 rdf:type owl:NamedIndividual ,
+                                   :Employment ;
+                          :beginning <http://waysysweb.com/ontolgoy/lootedart#1945_05> ;
+                          :employedBy :BritishMFAA ;
+                          :role :ActingDirector ;
+                          rdfs:comment "In May, 1945, Cooper became Acting Director of the British MFAA." ;
+                          rdfs:seeAlso "https://www.monumentsmenfoundation.org/cooper-sqn-ldr-douglas" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentFaisonALIU
+:EmploymentFaisonALIU rdf:type owl:NamedIndividual ,
+                               :Employment ;
+                      :beginning <http://waysysweb.com/ontolgoy/lootedart#1945_04> ;
+                      :employedBy :ALIU ;
+                      :ending <http://waysysweb.com/ontolgoy/lootedart#1946_01> .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentFaisonMCCP
+:EmploymentFaisonMCCP rdf:type owl:NamedIndividual ,
+                               :Employment ;
+                      :employedBy :MCCP .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentFischerGallery
+:EmploymentFischerGallery rdf:type owl:NamedIndividual ,
+                                   :Employment .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#EmploymentFischerVerlag
+:EmploymentFischerVerlag rdf:type owl:NamedIndividual ,
+                                  :Employment ;
+                         :beginning <http://waysysweb.com/ontolgoy/lootedart#1886_01> ;
+                         :employedBy :FischerVerlag ;
+                         :role :Founder .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#FR
+:FR rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Faison_Lane
+:Faison_Lane rdf:type owl:NamedIndividual ,
+                      :Person ;
+             :hasEmployment :EmploymentFaisonALIU ,
+                            :EmploymentFaisonMCCP ;
+             :nameFirst "S. Lane" ;
+             :nameLast "Faison" ;
+             :rank "Lt. Cmdr." ;
+             :yearBirth 1907 ;
+             :yearDeath 2006 ;
+             rdfs:comment "Samson Lane Faison, Jr. (November 16, 1907 – November 11, 2006) was an American art historian, professor, and director of the Williams College Museum of Art." ;
+             rdfs:seeAlso "https://en.wikipedia.org/wiki/S._Lane_Faison" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#FamilyFischer
+:FamilyFischer rdf:type owl:NamedIndividual ,
+                        :Family ;
+               :knownFor :FischerVerlag ;
+               :name "Fischer" ;
+               rdfs:comment "Family famous for publishing house." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#FamilySchloss
+:FamilySchloss rdf:type owl:NamedIndividual ,
+                        :Family ;
+               :name "Schloss Family" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#FischerGallertyAuction
+:FischerGallertyAuction rdf:type owl:NamedIndividual ,
+                                 :Auction ;
+                        :atDate <http://waysysweb.com/ontolgoy/lootedart#1939_06> ;
+                        :conductedBy :FischerGallery ;
+                        rdfs:comment "German Reich Minister of Propaganda, attempts were made to sell some of the more valuable \"degenerate\" works abroad to raise foreign currency to help the war effort. Dealers were appointed in Germany for this purpose and Theodore Fischer was instructed to hold an auction of \"degenerate art\" in Switzerland. This took place on 30 June 1939 at the Fischer Gallerie." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#FischerGallery
+:FischerGallery rdf:type owl:NamedIndividual ,
+                         :ArtDealership ;
+                :beginning <http://waysysweb.com/ontolgoy/lootedart#1907-01> ;
+                :city :Lucern ;
+                :nationality :CH ;
+                :alternateName "Galerie Fischer" ;
+                rdfs:comment """Galerie Fischer in Lucerne is the oldest Swiss Fine Art Auction House and one of Europe’s leading auction houses, and in many aspects its history reflects the way in which the art market and art auctions in Europe have evolved. Through its commitment Galerie Fischer has been an important agent not only in shaping the development of the art market in Switzerland but also in setting up and enriching many private and public art collections in both Switzerland and abroad. Significant works of art from major collections have been auctioned on the premises of Galerie Fischer and been acquired by new owners elsewhere, in turn bringing delight and enthusiasm, and stimulating both the intellect and the senses.
+
+Galerie Fischer was founded in 1907 byTheodor Fischer (1878 –1957), a former director of the Bosshard Gallery in Lucerne, one of the leading galleries of fine art and antiquities of its time. Theodor Fischer always attended to the business of running the newly established Galerie Fischer with great enthusiasm. He opened a branch in Berlin, which operated with success until after World War I and the impact of spiralling inflation. Historical events both during and after World War I yielded a number of important collections from Europe’s nobility and their estates, to be auctioned in Switzerland. Likewise, an abundance of fine paintings and antiquities was entrusted to Galerie Fischer for sale at auction following both the wave of emigration between the two World Wars and the need for reconstruction capital after World War II. Between 1921 and 1939 Theodor Fischer regularly held his auctions either on the premises of the Grand-Hotel National in Lucerne or at the Zur Meisen Guild House in Zurich. In 1939 he ordered major extension work to be carried out at Galerie Fischer so that auctions of international standing could now be held on dedicated premises on Haldenstrasse in Lucerne, in spacious, stately and stylishly elegant surroundings.Theodor Fischer had by then established himself as a leading auctioneer on the European continent. His two sons Arthur (1905 –1981) and Dr Paul Fischer (1911–1976) soon added their own energetic support to the diligence of the company founder, and went on to run the business after their father’s death in 1957.""" ;
+                rdfs:seeAlso "https://www.fischerauktionen.ch/en/about/history-of-galerie-fischer/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#FischerVerlag
+:FischerVerlag rdf:type owl:NamedIndividual ,
+                        :Publisher ;
+               :name "S. Fischer Verlag" ;
+               :yearFounded 1886 ;
+               rdfs:seeAlso "https://en.wikipedia.org/wiki/S._Fischer_Verlag" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Fischer_Gisela
+:Fischer_Gisela rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :memberOf :FamilyFischer ;
+                :nationality :DE ;
+                :nameFirst "Gisela" ;
+                :nameLast "Fischer" ;
+                :yearBirth 1929 ;
+                :yearDeath 2014 ;
+                rdfs:comment """Gisela Fischer was born on April 21, 1929 in Berlin, Germany. She was an actress, known for Torn Curtain (1966), Frau Cheneys Ende (1961) and Heinrich IV. (1967). She died on June 19, 2014 in Zürich, Switzerland.
+
+Her family escaped Nazi persecution, escaping from Berlin and then Vienna, eventually ending up in Greenwich, Connecticut in 1940.""" ;
+                rdfs:seeAlso "https://www.imdb.com/name/nm0278920/bio?ref_=nm_ov_bio_sm" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Fischer_Samuel
+:Fischer_Samuel rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :founded :FischerVerlag ;
+                :hasEmployment :EmploymentFischerVerlag ;
+                :memberOf :FamilyFischer ;
+                :nationality :DE ;
+                :nameFirst "Samuel" ;
+                :nameLast "Fischer" ;
+                rdfs:comment "S. Fischer Verlag is a major German publishing house, which has operated as a division of Holtzbrinck Publishing Group since 1962. The publishing house was founded in 1886 by Samuel Fischer in Berlin, but is currently based in Frankfurt am Main, and is traditionally counted among the most prestigious publishing houses in the German-speaking world." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Fischer_Theodor
+:Fischer_Theodor rdf:type owl:NamedIndividual ,
+                          :Person ;
+                 :nationality :CH ;
+                 :occupation :ArtDealer ;
+                 :nameFirst "Theodor" ;
+                 :nameLast "Fischer" ;
+                 :yearBirth 1978 ;
+                 :yearDeath 1957 ;
+                 rdfs:comment "Theodor Fischer (1878–1957) was a Swiss art dealer and auctioneer in Lucerne who after the First World War built a highly successful firm of auctioneers that dominated the Swiss art market. In 1939 he was the auctioneer at the infamous Grand Hotel auction of \"degenerate art\" removed from German museums by the Nazis. During the Second World War he played a key part in the trading of art looted by the Germans from occupied countries." ;
+                 rdfs:seeAlso "https://en.wikipedia.org/wiki/Theodor_Fischer_(auctioneer)" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Founder
+:Founder rdf:type owl:NamedIndividual ,
+                  :Role .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Fuhremuseum
+:Fuhremuseum rdf:type owl:NamedIndividual ,
+                      :Museum ;
+             :alternateName "Leader's Museum" ,
+                            "Linz Art Gallery" ;
+             rdfs:comment """The Führermuseum (English, Leader's Museum), also referred to as the Linz art gallery, was an unrealized art museum within a cultural complex planned by Adolf Hitler for his hometown, the Austrian city of Linz, near his birthplace of Braunau. Its purpose was to display a selection of the art bought, confiscated or stolen by the Nazis from throughout Europe during World War II. The cultural district was to be part of an overall plan to recreate Linz, turning it into a cultural capital of Nazi Germany and one of the greatest art centers of Europe, overshadowing Vienna, for which Hitler had a personal distaste. He wanted to make the city more beautiful than Budapest, so it would be the most beautiful on the Danube River, as well as an industrial powerhouse and a hub of trade; the museum was planned to be one of the greatest in Europe.[1][2]
+
+The expected completion date for the project was 1950, but neither the Führermuseum nor the cultural centre it was to anchor were ever built. The only part of the elaborate plan which was constructed was the Nibelungen Bridge, which is still extant""" ;
+             rdfs:seeAlso "https://en.wikipedia.org/wiki/F%C3%BChrermuseum#Dealers_and_agents" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#GB
+:GB rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Geier_Gabriele
+:Geier_Gabriele rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :hasOwnership :OwnershipGeierRedHorses ;
+                :nationality :AT ;
+                :nameFirst "Gabriele" ;
+                :nameLast "Geier" ;
+                :nameMaiden "Brougier" ;
+                :yearBirth 1918 ;
+                rdfs:comment "Gabriele Brougier Esselborn Geier. She was born Gabriele Brougier on April 2, 1918, in Vienna, Austria. In 1939, she married Wilhelm zu Solms-Roedelheim und Assenheim, a local psychoanalyst who turned out to be the bearer of an impressive aristocratic pedigree linking him to Prussian nobility and the House of Hessen. He was also politically hostile to the National Socialists and became active in the Austrian political resistance to Hitler throughout the Second World War. The pair divorced in 1947." ;
+                rdfs:seeAlso "https://plundered-art.blogspot.com/2012/01/red-horses-by-franz-marc.html" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Geier_Paul
+:Geier_Paul rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :nationality :US ;
+            :spouse :Geier_Gabriele ;
+            :nameFirst "Paul" ;
+            :nameLast "Geier" ;
+            :yearBirth 1914 ;
+            :yearDeath 1981 ;
+            rdfs:seeAlso """In 1949, Gabriele married Paul Esselborn Geier, referred to as Paul E. Geier. There is a strong possibility that the two met in Vienna. Geier, born on November 19, 1914 hailed from Cincinnati, Ohio, where his father, Frederick Geier, Sr., was an important local manufacturer of machine parts. His father divorced his mother, Juliet Esselborn, to marry another woman, Amanda Mayer. Paul E. Geier studied at Harvard University from which he graduated in 1936. There, he wrote a pamphlet entitled “Studies of Modern German Antisemitism” which Harvard published in 1936. From there, he went to Harvard Law School from which he graduated in 1939. Geier returned to Cincinnati where he joined his father’s company. On February 9, 1940, he was admitted to the Ohio Bar. Later on, he represented the British Purchasing Commission before joining the Foreign Service. His duties as an American diplomat took him to Tangiers in March 1941, Jidda in November 1943 before becoming part of the staff of the US Political Advisor (USPOLAD) on Austrian Affairs, in the Mediterranean Theater of Operations (MEDTO) in 1945. Those duties took him to Vienna where he served as vice consul in 1946 and as consul in 1947. Geier then was transferred to Casablanca in mid-1948 before joining the US Embassy in Rome in 1949 where he served until 1953. At some point, Geier became very close to the art historian Bernard Berenson whom he regularly visited at his estate, Villa I Tatti, which Berenson had acquired in 1905. I Tatti later became part of the Harvard University Empire as a leading international center for research and scholarship in art history.
+
+The Geiers made their home in Rome, although Gabriele also maintained a presence in her native Vienna. Thereafter, they moved back to Cincinnati in the mid-1950s where Paul and Gabriele became major philanthropic figures in the arts and higher education.""" ,
+                         "https://plundered-art.blogspot.com/2012/01/red-horses-by-franz-marc.html" ,
+                         "https://www.ancestry.com/discoveryui-content/view/161220:9246?tid=&pid=&queryId=dc46e87fb266627e78c44296ca24479b&_phsrc=kUl1&_phstart=successSource" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Gopel_Erhard
+:Gopel_Erhard rdf:type owl:NamedIndividual ,
+                       :Person ;
+              :agentFor :Hitler_Adolph ;
+              :memberOf :LinzSpecialCommission ;
+              :occupation :ArtDealer ,
+                          :ArtHistorian ;
+              :alternateName "Goepel" ;
+              :nameFirst "Erhard" ;
+              :nameLast "Gopel" ;
+              :title "Dr." ;
+              :yearBirth 1906 ;
+              :yearDeath 1966 ;
+              rdfs:comment "Erhard Göpel was a key member of the Linz Special Commission, the team of dealers who purchased—and looted—art across Europe for Hitler’s unrealised Führermuseum, planned for his home town of Linz. Göpel was instrumental in acquiring the Schloss family collection in Paris after it had been looted by the Gestapo. The collection, assembled by an Austrian-born French Jew, included works by Rembrandt and Frans Hals. After the war, Göpel evaded sentencing and spent the rest of his career organising exhibitions in Munich." ,
+                           "https://www.openartdata.org/2018/02/german-art-historians-erhard-and.html" ;
+              rdfs:seeAlso "https://www.theartnewspaper.com/news/widow-of-hitler-s-art-dealer-erhard-goepel-bequeaths-max-beckmann-works-to-berlin" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#HarvardArtMuseums
+:HarvardArtMuseums rdf:type owl:NamedIndividual ,
+                            :Museum ;
+                   :hasOwnership :OwnershpHarvardRedHorses ;
+                   :name "Harvard Art Museums" ;
+                   rdfs:seeAlso "https://harvardartmuseums.org/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Hitler_Adolph
+:Hitler_Adolph rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :leader :NaziParty ;
+               :memberOf :NaziParty ;
+               :nationality :AT ;
+               :nameFirst "Adolf" ;
+               :nameLast "Hitler" ;
+               :yearBirth 1889 ;
+               :yearDeath 1945 ;
+               rdfs:seeAlso "https://en.wikipedia.org/wiki/Adolf_Hitler" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#IT
+:IT rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#JeudePaume
+:JeudePaume rdf:type owl:NamedIndividual ,
+                     :Place ;
+            :city :Paris ;
+            :alternateName "Jeu de Paume" ;
+            :name "Galerie nationale du Jeu de Paume" ;
+            rdfs:comment "Jeu de Paume is an arts centre for modern and postmodern photography and media.  Jeu de Paume was used from 1940 to 1944 to store Nazi plunder looted by the regime's Reichsleiter Rosenberg Taskforce (ERR) in France" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#LI
+:LI rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Leader
+:Leader rdf:type owl:NamedIndividual ,
+                 :Role ;
+        :name "Leader" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Linz
+:Linz rdf:type owl:NamedIndividual ,
+               :City ;
+      :country :AT ;
+      :name "Linz" ;
+      rdfs:comment "Birthplace of Hitler" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#LinzSpecialCommission
+:LinzSpecialCommission rdf:type owl:NamedIndividual ,
+                                :GovernmentOrganization ;
+                       :nationality :DE ;
+                       :partOf :Fuhremuseum ;
+                       :name "Linz Special Commission" ;
+                       rdfs:seeAlso "The Linz Special Commission was  a team of dealers who purchased—and looted—art across Europe for Hitler’s unrealised Führermuseum, planned for his home town of Linz." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Lucern
+:Lucern rdf:type owl:NamedIndividual ,
+                 :City ;
+        :country :CH ;
+        :name "Lucern" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#MCCP
+:MCCP rdf:type owl:NamedIndividual ,
+               :GovernmentOrganization ;
+      :name "Munich Central Collecting Point" ;
+      :yearDissolved 1951 ;
+      :yearFounded 1945 ;
+      rdfs:seeAlso """The Munich Central Collecting Point was a depot used by the Monuments, Fine Arts, and Archives program after the end of the Second World War to process, photograph and redistribute artwork and cultural artifacts that had been confiscated by the Nazis and hidden throughout Germany and Austria.[1] Other Central Collecting Points were located at Marburg, Wiesbaden and Offenbach, with the overall aim of giving restitution for the artifacts to their countries of origin.[1]
+
+Lieutenant Craig Hugh Smyth was responsible for establishing the Munich Central Collecting Point in July 1945, converting former Nazi Party offices into a depot complete with photography studios and conservation labs. The depot's activities were directed by Herbert S. Leonard.[2]
+
+The Munich Central Collecting Point mainly processed artwork from European museums and private collections, including Hitler's collection found at Altaussee. This included paintings, sculptures, metalwork and other objects. These restitution activities at Munich ceased in 1951.[1]
+
+Archives of materials relating to the Munich Central Collecting Point are located in two repositories in the USA. Original inventory records and photographs of works of art are held by the National Archives and Records Administration. There is a further archive of photographs, and microfilm copies of the inventory cards, in the Photographic Archives at the National Gallery of Art in Washington, DC.""" ,
+                   "https://en.wikipedia.org/wiki/Munich_Central_Collecting_Point" ,
+                   "https://www.nga.gov/research/library/imagecollections/core-collection/munich-central.html" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#MFAA
+:MFAA rdf:type owl:NamedIndividual ,
+               :MilitaryOrganization ;
+      :partOf :SupremeHeadquarters ;
+      :alternateName "MFAA" ,
+                     "Roberts Commission" ;
+      :name "Monuments, Fine Arts, and Archives Section" ;
+      :yearDissolved 1946 ;
+      :yearFounded 1943 ;
+      rdfs:comment "U.S. President Franklin D. Roosevelt established the \"American Commission for the Protection and Salvage of Artistic and Historic Monuments in War Areas\" on June 23, 1943." ;
+      rdfs:seeAlso "https://www.monumentsmenfoundation.org/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Marc_Franz
+:Marc_Franz rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :nameFirst "Franz" ;
+            :nameLast "Marc" ;
+            :yearBirth 1880 ;
+            :yearDeath 1916 ;
+            rdfs:comment """Franz Marc was born on February 8,1880, in Munich. According to his first biographyer, Alois Schardt, Marc was so ugly at birth that his father, when taking a first close look at his son at baptism, fainted. Undeterred by the family's reaction, Marc quickly emulated their character, becoming know, while still a baby, as the \"little philosopher\". His father, Wilhelm, was landscapist of \"curiously philosophical character\", according to Franz; his mother, Sophie, was an Alsacian from a strict Calvinist tradition. Marc's grandparents, were amateur artists who copied the masters. They and his great grandparents were aristocrats, with friends among artists as well as people of letters.
+
+By early 1911 Marc had already developed a symbolism for his use of color. In this, he followed a pattern established by an early-nineteenth-century German Romantic painter, and Marc's friend Kandinsky. Marc ascribed spirituality and maleness to blue, femininity and sensuality to yellow, and terrestrial materiality to red. The context in which Marc worked suggests he employed these correspondences programmatically, for Kandinsky was extremely serious about color symbolism, and the Symbolists, with whom Kandinsky and Marc had much in common, were likewise interested in such ideas. Marc wrote: \"Every color must say clearly 'who and what it is, and must, moreover, be related to a clear form.\"
+Such strength of purpose is particularly apparent in the paintings of 1911.
+
+In Red Horses, the depiction is sufficiently simplified so as to allow the color to be paramount. The dynamic red of the horses suggested that Marc intended to emphasize an earthly orientation for this particular group of animals. The white area surmounting the pyramidally arranged horses can be understood as symbolizing purity or solace in comparison to the rest of the canvas. To interpret Marc's use of green in the upper third of the painting with regard to his thoughts on color is also enlightening. He said that once green in introduced, \"You never entirely bring the eternally material, brutal red to rest.\" In that spirit, the horses seem nervous beyond all possibility of resolution. Only the blue, as Marc prescribed, lends a peaceful note to the agitated atmosphere.
+
+While Marc has employed in Red Horses an absolutely arbitrary palette, he has not sought to flatten color to planes as the Fauves had done. Rather, he retains an illusionistic portrayal within which he seeks to form a rich color composition that reflects the vitality of his subject. The principal achievement in Red Horses is this depiction of the uninhibited energy of nature using completely naturalistic colors. Vitality by viutue of a coloristic boldness recalls Henri Matisse, particularly in The Dance, a works chosen by Marc and Kandinsky sometime in 1911 for reproduction in the yearbook of the Blue Rider group, entitled Der Blaue Reiter. As in Matisses's canvas, unification of figure and ground is accomplished by repeating curves; the effect of a dance in the arrangement of the horses can be confirmed by an earlier versions of this work.""" ;
+            rdfs:seeAlso "https://www.franzmarc.org/biography.jsp" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#MobelAktion
+:MobelAktion rdf:type owl:NamedIndividual ,
+                      :Operation ;
+             :beginning <http://waysysweb.com/ontolgoy/lootedart#1942_01> ;
+             :conductedBy :ERR ;
+             :ending <http://waysysweb.com/ontolgoy/lootedart#1944_08> ;
+             :leader :Behr_Kurt_von ;
+             :alternateName "FURNITURE ACTION" ,
+                            "M-Action" ;
+             :name "MÖBEL-AKTION" ;
+             rdfs:comment """Under the code name \"Furniture Action\" or also \"M-Action\" (abbreviation for \"Möbel-Aktion\"), the \"Einsatzstab Reichsleiter Rosenberg\" looted approximately 70,000 homes since early 1942 of French, Belgian, and Dutch Jews who had either fled or had been deported. The objects of art from these homes were inventoried separately, photographed, and transported to Germany. Alfred Rosenberg, who also became \"Reich Minister for the Occupied Eastern Territories\" as of July 1941, wanted to furnish German administrative offices in the East with the confiscated furniture and other items. In fact, bombed-out families in Germany mainly profited from the looted furniture.
+
+In Paris alone, the \"Einsatzstab Reichsleiter Rosenberg\" combed through 38,000 homes. A Parisian department store served as an interim storage space before the looted furniture was transported to Germany.""" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Munich
+:Munich rdf:type owl:NamedIndividual ,
+                 :City ;
+        :country :DE ;
+        :name "Munich" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#MuseumOfCulturalHistory
+:MuseumOfCulturalHistory rdf:type owl:NamedIndividual ,
+                                  :Museum ;
+                         rdfs:comment """Glocal history and encounters with the “stranger” – this is what we aim to make possible at the Museum of Cultural History at MQ4. And no, “glocal” isn’t a typo. In the Museum of Cultural History, we take the opportunity to deal with local history from a global perspective. For this purpose, we are building a brand-new exhibition, which will extend over several floors.
+
+The existing collection will help during this process: dating back to colonial times, the exhibits also recount the cultural history of the world. And we build on this. What relationship do we have with what we perceive to be “foreign” today? How do we engage with the “stranger”? How do we deal with it at a time when migration has become such a major social issue?
+
+At the Museum of Cultural History, we facilitate encounters and promote understanding of differences and similarities. We actively involve the people of Osnabrück in the exploration of the links between history and the present day – after all, it is their story. With this in mind, the Museum of Cultural History is making an important contribution to ensuring peaceful coexistence in both the present and the future.""" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#NaziParty
+:NaziParty rdf:type owl:NamedIndividual ,
+                    :PoliticalParty ;
+           :nationality :DE ;
+           :alternateName "NSDAP" ,
+                          "Nationalsozialistische Deutsche Arbeiterpartei" ,
+                          "Nazi Party" ;
+           :name "National Socialist German Workers’ Party" ;
+           :yearDissolved 1945 ;
+           :yearFounded 1919 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#NetworkMunich
+:NetworkMunich rdf:type owl:NamedIndividual ,
+                        :Network .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#OSS
+:OSS rdf:type owl:NamedIndividual ,
+              :GovernmentOrganization ;
+     :nationality :US ;
+     :partOf :USMilitary ;
+     :alternateName "OSS" ;
+     :name "Office of Strategic Services" ;
+     :yearDissolved 1945 ;
+     :yearFounded 1942 ;
+     rdfs:comment "The Office of Strategic Services (OSS) was a wartime intelligence agency of the United States during World War II, and a predecessor to the Department of State's Bureau of Intelligence and Research (INR) and the Central Intelligence Agency (CIA). The OSS was formed as an agency of the Joint Chiefs of Staff (JCS)[3] to coordinate espionage activities behind enemy lines for all branches of the United States Armed Forces. Other OSS functions included the use of propaganda, subversion, and post-war planning." ;
+     rdfs:seeAlso "https://en.wikipedia.org/wiki/Office_of_Strategic_Services" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Osnabruck
+:Osnabruck rdf:type owl:NamedIndividual ,
+                    :City ;
+           :country :DE ;
+           :name "Osnabruck" ;
+           rdfs:comment "Osnabrück is a city in northwest Germany. The Town Hall is where the 1648 Peace of Westphalia was negotiated, bringing the 30 Years’ War to an end. It sits on the market square, along with gabled houses and St. Marien, a 13th-century Gothic church. The Felix Nussbaum House shows a large collection of works by the local surrealist painter. To the south, the grounds of Osnabrück Castle are a venue for summer concerts." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#OwnershipGeierRedHorses
+:OwnershipGeierRedHorses rdf:type owl:NamedIndividual ,
+                                  :Ownership ;
+                         :beginning <http://waysysweb.com/ontolgoy/lootedart#1939_06> ;
+                         :ending <http://waysysweb.com/ontolgoy/lootedart#2014_01> ;
+                         :owns :TheRedHorses .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#OwnershpHarvardRedHorses
+:OwnershpHarvardRedHorses rdf:type owl:NamedIndividual ,
+                                   :Ownership ;
+                          :beginning <http://waysysweb.com/ontolgoy/lootedart#2014_01> ;
+                          :owner :HarvardArtMuseums ;
+                          :owns :TheRedHorses ;
+                          rdfs:comment "Harvard Art Museum currently owns the Red Horses." ;
+                          rdfs:seeAlso "https://harvardartmuseums.org/collections/object/222353" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#PL
+:PL rdf:type owl:NamedIndividual ,
+             :Country ;
+    rdfs:comment "Poland" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Paris
+:Paris rdf:type owl:NamedIndividual ,
+                :City ;
+       :country :FR ;
+       :name "Paris" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#SaleRedHorses1939
+:SaleRedHorses1939 rdf:type owl:NamedIndividual ,
+                            :Sale ;
+                   rdfs:comment "The Red Horses was sold at the Fischer Gallery Auction in 1939 to Paul Geier." ,
+                                """The extant literature on “The Red Horses” is a bit mixed up about who bought the painting in Lucerne. Never do we see the name of Fritz Steinmeyer, who was Julius Bohler’s former art gallery partner before striking out on his own. It is Steinmeyer who allegedly acquires the painting. This attribution is correctly mentioned by German art historian Uwe Fleckner in his opus “Angriff auf die Avantgarde: Kunst und Kunstpolitik im Nationalsozialismus’. He states that lot 87 was sold to Mr. Steinmeyer, Luzern for Paul E. Geier, in Cincinnati. The reference to Paul Geier is an exercise in elliptical thinking, which is also repeated by provenance researcher Laurie Stein in a biting report that she wrote for the Swiss government on German-Swiss trafficking in “degenerate” works where she indicates that Paul Geier attended the sale and acquired several works including “The Red Horses.” It turns out that Paul was busy graduating from Harvard Law School while the Lucerne sale was well under way and that he had no knowledge of his future wife, Gabriele, nor of her interest in “degenerate” works of art. These types of mistakes, small as they may seem, are of a kind that raise our antennae about the accuracy of other information pertaining to the Lucerne auction and similar events.
+
+Furthermore, numerous art sites on the Internet ascribe “The Red Horses” to a private collection or to an anonymous loan, when a bit of effort in research would have pointed out the identity of Gabriele as the owner of the work in question since 1939 and with her husband, Paul, since 1949. The Frick Museum’s online Art Reference Library (FRESCO) is the only source that gets it almost entirely right, naming Gabriele Geier as the owner since Lucerne.
+
+Regardless of the above, several points come to mind:
+How did Gabriele Brougier zu Solms-Rodelheim und Assenheim know about the Lucerne sale and which pieces to acquire there? How did she feel about acquiring de-accessioned works because of their “degenerate” character, knowing that the funds would revert back to the German State?
+ 
+What was her relationship with Fritz Steinmeyer? Or did Steinmeyer acquire the works before contacting Gabriele Brougier to interest her in the Marc painting and in the Kokoschka as well?
+ 
+As with the other de-accessioned pieces sold at the Fischer Gallery in Lucern on June 30, 1939, our position is firm: the sale was illegal, the works were illegally removed from German State collections and, therefore, their ownership history will be forever tainted.""" ;
+                   rdfs:seeAlso "https://plundered-art.blogspot.com/2012/01/red-horses-by-franz-marc.html" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Schloss_Adolphe
+:Schloss_Adolphe rdf:type owl:NamedIndividual ,
+                          :Person ;
+                 :conductedTheft :TheftCollectionSchloss ;
+                 :memberOf :FamilySchloss ;
+                 :nationality :DE ;
+                 :started :CollectionSchloss ;
+                 :nameFirst "Adophe" ;
+                 :nameLast "Schloss" ;
+                 :yearBirth 1842 ;
+                 :yearDeath 1910 ;
+                 rdfs:comment "Schloss was born to a Jewish family[1] in Furth, Lower Bavaria. He married Mathilde Lucie Haas and together they collected 333 works of art from the Northern and Southern Netherlands that became notable as the Ad. Schloss collection between 1900 and World War II. They held a gallery at Salon Adolphe Schloss, residence 38, avenue Henri Martin, Paris. After Adolphe's death there, his collection became the property of his wife Lucie, who died in 1938 and the collection was left to their children Marguerite, Henry, Juliette and Lucien. They moved the collection to Château de Chambon, Laguenne for safekeeping during the war, where it was looted by the Vichy government in 1943. Of the 333 objects, only 230 were actually offered to Hitler's Führer museum and 49 were saved for France and given to the Louvre. After the war all were lost, but gradually 148 objects could be rediscovered." ;
+                 rdfs:seeAlso "https://en.wikipedia.org/wiki/Adolphe_Schloss" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Staff
+:Staff rdf:type owl:NamedIndividual ,
+                :Role ;
+       :month 01 ;
+       :year 1943 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Stettin
+:Stettin rdf:type owl:NamedIndividual ,
+                  :City ;
+         :country :PL ;
+         :alternateName "Szcecin" ;
+         rdfs:comment "Szcecin is a city in Poland that was once the German city of Stettin." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#StettinCityMuseum
+:StettinCityMuseum rdf:type owl:NamedIndividual ,
+                            :Museum ;
+                   :city :Stettin ;
+                   :name "City Museum" ;
+                   rdfs:comment "The process of creating public collection and the museum institution finally began in the second half of the 19th century. In 1878 a City Museum was established. It included, among others, City Painting Gallery (Städtische Bildergalerie), City Graphics Collection (Städtische Kupferstichsammlung), Collection of Antique Bronze (Antike Bronzesammlung). The City Museum (Museum der Stadt Stettin), created by merging the city collections, in 1913 obtained a new seat in a new building, designed by Wilhelm Meyer-Schwartau, at today’s Wały Chrobrego. Thanks to patricians’ donations and to the activities of the Museum’s first director, Walter Riezler, a large collection including ancient art, modern painting and natural specimens was created. Second museum institution – Pomerania State Museum (Pommersches Landesmuseum) – was placed in a baroque former Landed Gentry House between the wars." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#SupremeHeadquarters
+:SupremeHeadquarters rdf:type owl:NamedIndividual ,
+                              :MilitaryOrganization ;
+                     :name "Allied Forces. Supreme Headquarters" ;
+                     rdfs:comment "Allied Forces. Supreme Headquarters" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#TheRedHorses
+:TheRedHorses rdf:type owl:NamedIndividual ,
+                       :Painting ;
+              :atDate <http://waysysweb.com/ontolgoy/lootedart#1911_01> ;
+              :creator :Marc_Franz ;
+              :nationality :DE ;
+              :alternateName "Grazing Horses IV" ,
+                             "Three Red Horses" ;
+              :name "The Red Horses" ;
+              rdfs:comment """Provenance: 
+
+The artist, 1911, sold; to the Folkwang Museum (Hagen, later Essen, Germany, 1911-1937); removed from the collection by the National Socialist (Nazi) authorities,1937, consigned; to [Theodor Fischer Gallery, Lucerne, Switzerland, for sale June 30, 1939, lot 87;] sold [through Steinmeyer] to Paul E. Geier (1939-1981) by descent; to Gabriele Geier, (1981-2012); Estate of Gabriele Geier (2012-2014) bequest; to the Busch-Reisinger Museum, 2014.
+
+NOTE:
+See Barron, et. al. for information on Steinmeyer, p. 146. n.21.
+
+This painting was on loan to the Busch-Reisinger Museum from 1991-2014.""" ;
+              rdfs:seeAlso "https://harvardartmuseums.org/collections/object/222353" ,
+                           "https://www.franzmarc.org/The-Red-Horses.jsp" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#TheftCollectionSchloss
+:TheftCollectionSchloss rdf:type owl:NamedIndividual ,
+                                 :Theft ;
+                        :atDate <http://waysysweb.com/ontolgoy/lootedart#1943_01> ;
+                        :owner :FamilySchloss ;
+                        :perpetrator :Gopel_Erhard ;
+                        :thingStolen :CollectionSchloss ;
+                        rdfs:comment "The collection was so significant that German units began searching for the collection immediately after the invasion of France, but it wasn’t until 1943 that the French Vichy officials in collaboration with German SS officers located and seized the collection. Of the 333 paintings, 262 were selected for the  Führermuseum, 49 paintings went to the Louvre, and the remaining were, unfortunately, disposed of. The Schloss heirs never received payment for the collection. To date, there are approximately 171 paintings that remain lost." ;
+                        rdfs:seeAlso "https://unwritten-record.blogs.archives.gov/2015/11/17/the-lost-paintings-the-schloss-art-collection/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#US
+:US rdf:type owl:NamedIndividual ,
+             :Country .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#USMilitary
+:USMilitary rdf:type owl:NamedIndividual ,
+                     :GovernmentOrganization ;
+            :nationality :US ;
+            :name "United States Armed Forces" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1886_01
+<http://waysysweb.com/ontolgoy/lootedart#1886_01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 01 ;
+                                                  :year 1886 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1907-01
+<http://waysysweb.com/ontolgoy/lootedart#1907-01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 01 ;
+                                                  :year 1907 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1911_01
+<http://waysysweb.com/ontolgoy/lootedart#1911_01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 01 ;
+                                                  :year 1911 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1939_06
+<http://waysysweb.com/ontolgoy/lootedart#1939_06> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 06 ;
+                                                  :year 1939 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1940_07
+<http://waysysweb.com/ontolgoy/lootedart#1940_07> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 07 ;
+                                                  :year 1940 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1942_01
+<http://waysysweb.com/ontolgoy/lootedart#1942_01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 1 ;
+                                                  :year 1942 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1943_01
+<http://waysysweb.com/ontolgoy/lootedart#1943_01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1944_08
+<http://waysysweb.com/ontolgoy/lootedart#1944_08> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 08 ;
+                                                  :year 1944 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1944_11
+<http://waysysweb.com/ontolgoy/lootedart#1944_11> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1944_12
+<http://waysysweb.com/ontolgoy/lootedart#1944_12> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 12 ;
+                                                  :year 1944 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1945_04
+<http://waysysweb.com/ontolgoy/lootedart#1945_04> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 04 ;
+                                                  :year 1945 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1945_05
+<http://waysysweb.com/ontolgoy/lootedart#1945_05> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1946_01
+<http://waysysweb.com/ontolgoy/lootedart#1946_01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 01 ;
+                                                  :year 1946 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1970_12
+<http://waysysweb.com/ontolgoy/lootedart#1970_12> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 12 ;
+                                                  :year 1970 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1981_10
+<http://waysysweb.com/ontolgoy/lootedart#1981_10> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#2014_01
+<http://waysysweb.com/ontolgoy/lootedart#2014_01> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 01 ;
+                                                  :year 2014 .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :ArtWork
+                :Event
+                :Group
+                :Location
+                :Occupation
+                :Party
+                :Relation
+                :Role
+                :Timing
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :ArtWork
+                :Event
+                :Location
+                :Occupation
+                :Party
+                :Relation
+                :Role
+                :Timing
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :City
+                :Country
+                :Place
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
