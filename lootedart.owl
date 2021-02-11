@@ -50,6 +50,12 @@
        rdfs:range :Party .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#child
+:child rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :family ;
+       owl:inverseOf :parent .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#city
 :city rdf:type owl:ObjectProperty ;
       rdfs:subPropertyOf :located ;
@@ -128,6 +134,11 @@
         rdfs:subPropertyOf :hasTime ;
         rdf:type owl:FunctionalProperty ;
         rdfs:comment "The end of a duration." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#family
+:family rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#founded
@@ -225,6 +236,11 @@
       rdfs:comment "The act, state, or right of possessing a work of art.." .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#parent
+:parent rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :family .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#partOf
 :partOf rdf:type owl:ObjectProperty ;
         rdfs:subPropertyOf owl:topObjectProperty ;
@@ -280,7 +296,7 @@
 
 ###  http://waysysweb.com/ontolgoy/lootedart#spouse
 :spouse rdf:type owl:ObjectProperty ;
-        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdfs:subPropertyOf :family ;
         rdf:type owl:SymmetricProperty ;
         rdfs:range :Person ;
         rdfs:comment "The person married to a person." .
@@ -484,7 +500,7 @@ owl:topDataProperty rdfs:comment "The name of the position in an organization." 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#ArtCollection
 :ArtCollection rdf:type owl:Class ;
-               rdfs:subClassOf :Group ;
+               rdfs:subClassOf :ArtWork ;
                rdfs:comment "An art collection is a group of art works that belong to a party." .
 
 
@@ -611,7 +627,7 @@ Art works have a creator.""" .
 
 ###  http://waysysweb.com/ontolgoy/lootedart#Network
 :Network rdf:type owl:Class ;
-         rdfs:subClassOf :Relation ;
+         rdfs:subClassOf :Party ;
          rdfs:comment "A network is an informal association of parties that exchange information and transact business over a period of time.  A network may be centered in a particular city." .
 
 
@@ -656,6 +672,11 @@ Art works have a creator.""" .
 ###  http://waysysweb.com/ontolgoy/lootedart#Painting
 :Painting rdf:type owl:Class ;
           rdfs:subClassOf :ArtWork .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Partnership
+:Partnership rdf:type owl:Class ;
+             rdfs:subClassOf :BusinessDealing .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#Party
@@ -945,6 +966,14 @@ Art works have a creator.""" .
 ###  http://waysysweb.com/ontolgoy/lootedart#CoDirector
 :CoDirector rdf:type owl:NamedIndividual ,
                      :Role .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CollectionGoring
+:CollectionGoring rdf:type owl:NamedIndividual ,
+                           :ArtCollection ;
+                  :owner :Goring_Herman ;
+                  :startedBy :Goring_Herman ;
+                  :name "Goring Collection" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#CollectionSchloss
@@ -1283,6 +1312,56 @@ The Geiers made their home in Rome, although Gabriele also maintained a presence
               rdfs:seeAlso "https://www.theartnewspaper.com/news/widow-of-hitler-s-art-dealer-erhard-goepel-bequeaths-max-beckmann-works-to-berlin" .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#Goring_Edda
+:Goring_Edda rdf:type owl:NamedIndividual ,
+                      :Person ;
+             :memberOf :NetworkMunich ;
+             :parent :Goring_Herman ;
+             :nameFirst "Edda" ;
+             :nameLast "Goring" ;
+             :yearBirth 1938 ;
+             :yearDeath 2018 ;
+             rdfs:comment """Edda Carin Wilhelmine Göring (2 June 1938 – 21 December 2018) was the only child of German politician, military leader, and leading member of the Nazi Party Hermann Göring, by his second marriage to the German actress Emmy Sonnemann. In English-language sources the name is often spelled Goering.
+
+Born the year before the outbreak of the Second World War, Edda spent most of her early childhood years with her mother at the Göring family estate at Carinhall. As a child she received many historical works of art as gifts, including a painting of the Madonna and Child by Lucas Cranach the Elder.
+
+In the final stages of the war, she and her mother moved to their mountain home at Obersalzberg, near Berchtesgaden. After the war, she went to a girls-only school, studied at the Ludwig Maximilian University of Munich, and became a law clerk. In the 1950s and 1960s many of the valuable gifts she received as a child, including the Madonna and Child painting, became the subject of long legal battles, most of which she eventually lost in 1968.
+
+Unlike the children of other high-ranking Nazis, such as Gudrun Himmler and Albert Speer Jr., Göring did not speak in public about her father's career. However, in 1986 she was interviewed for Swedish television and spoke lovingly of both her parents.""" ;
+             rdfs:seeAlso "https://en.wikipedia.org/wiki/Edda_G%C3%B6ring" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Goring_Herman
+:Goring_Herman rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :memberOf :NaziParty ;
+               :nationality :DE ;
+               :reportedTo :Hitler_Adolph ;
+               :nameFirst "Herman" ;
+               :nameLast "Goring" ;
+               :nameMiddle "Wilhelm" ;
+               :yearBirth 1893 ;
+               :yearDeath 1946 ;
+               rdfs:comment """Hermann Wilhelm Göring (or Goering;[a] German: [ˈɡøːʁɪŋ] (About this soundlisten); 12 January 1893 – 15 October 1946) was a German political and military leader and a convicted war criminal. Göring was one of the most powerful figures in the Nazi Party, which ruled Germany from 1933 to 1945.
+
+A veteran World War I fighter pilot ace, he was a recipient of the Pour le Mérite (\"The Blue Max\"). He was the last commander of Jagdgeschwader 1 (Jasta 1), the fighter wing once led by Manfred von Richthofen. An early member of the Nazi Party, Göring was among those wounded in Adolf Hitler's failed Beer Hall Putsch in 1923. While receiving treatment for his injuries, he developed an addiction to morphine which persisted until the last year of his life. After Hitler became Chancellor of Germany in 1933, Göring was named as minister without portfolio in the new government. One of his first acts as a cabinet minister was to oversee the creation of the Gestapo, which he ceded to Heinrich Himmler in 1934.
+
+Following the establishment of the Nazi state, Göring amassed power and political capital to become the second most powerful man in Germany. He was appointed commander-in-chief of the Luftwaffe (air force), a position he held until the final days of the regime. Upon being named Plenipotentiary of the Four Year Plan in 1936, Göring was entrusted with the task of mobilizing all sectors of the economy for war, an assignment which brought numerous government agencies under his control and helped him become one of the wealthiest men in the country. In September 1939 Hitler designated him as his successor and deputy in all his offices. After the Fall of France in 1940, he was bestowed the specially created rank of Reichsmarschall, which gave him seniority over all officers in Germany's armed forces.
+
+By 1941, Göring was at the peak of his power and influence. As the Second World War progressed, Göring's standing with Hitler and with the German public declined after the Luftwaffe proved incapable of preventing the Allied bombing of Germany's cities and resupplying surrounded Axis forces in Stalingrad. Around that time, Göring increasingly withdrew from military and political affairs to devote his attention to collecting property and artwork, much of which was stolen from Jewish victims of the Holocaust. Informed on 22 April 1945 that Hitler intended to commit suicide, Göring sent a telegram to Hitler requesting his permission to assume leadership of the Reich. Considering his request an act of treason, Hitler removed Göring from all his positions, expelled him from the party, and ordered his arrest. After the war, Göring was convicted of conspiracy, crimes against peace, war crimes and crimes against humanity at the Nuremberg trials in 1946. He was sentenced to death by hanging, but committed suicide by ingesting cyanide hours before the sentence was to be carried out.""" ;
+               rdfs:seeAlso "https://en.wikipedia.org/wiki/Hermann_G%C3%B6ring" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Griebert_Peter
+:Griebert_Peter rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :nationality :DE ;
+                :occupation :ArtDealer ;
+                :nameFirst "Peter" ;
+                :nameLast "Grieber" ;
+                :yearBirth 1938 .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#HarvardArtMuseums
 :HarvardArtMuseums rdf:type owl:NamedIndividual ,
                             :Museum ;
@@ -1522,9 +1601,9 @@ As with the other de-accessioned pieces sold at the Fischer Gallery in Lucern on
 ###  http://waysysweb.com/ontolgoy/lootedart#Schloss_Adolphe
 :Schloss_Adolphe rdf:type owl:NamedIndividual ,
                           :Person ;
-                 :conductedTheft :TheftCollectionSchloss ;
                  :memberOf :FamilySchloss ;
                  :nationality :DE ;
+                 :owns :CollectionSchloss ;
                  :started :CollectionSchloss ;
                  :nameFirst "Adophe" ;
                  :nameLast "Schloss" ;
