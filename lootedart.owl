@@ -255,6 +255,12 @@
              rdfs:comment "A person who particpates in an event." .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#partner
+:partner rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :participant ;
+         rdfs:range :Person .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#perpetrator
 :perpetrator rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf :participant ;
@@ -1216,7 +1222,8 @@ Galerie Fischer was founded in 1907 byTheodor Fischer (1878 –1957), a former d
                 rdfs:comment """Gisela Fischer was born on April 21, 1929 in Berlin, Germany. She was an actress, known for Torn Curtain (1966), Frau Cheneys Ende (1961) and Heinrich IV. (1967). She died on June 19, 2014 in Zürich, Switzerland.
 
 Her family escaped Nazi persecution, escaping from Berlin and then Vienna, eventually ending up in Greenwich, Connecticut in 1940.""" ;
-                rdfs:seeAlso "https://www.imdb.com/name/nm0278920/bio?ref_=nm_ov_bio_sm" .
+                rdfs:seeAlso "https://www.imdb.com/name/nm0278920/bio?ref_=nm_ov_bio_sm" ,
+                             "https://www.lootedart.com/news.php?r=MKP0SS308951" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#Fischer_Samuel
@@ -1352,14 +1359,26 @@ By 1941, Göring was at the peak of his power and influence. As the Second World
                rdfs:seeAlso "https://en.wikipedia.org/wiki/Hermann_G%C3%B6ring" .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#Grebert_Benno
+:Grebert_Benno rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :nameFirst "Benno" ;
+               :nameLast "Griebert" .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#Griebert_Peter
 :Griebert_Peter rdf:type owl:NamedIndividual ,
                          :Person ;
                 :nationality :DE ;
                 :occupation :ArtDealer ;
+                :partner :Griebert_Peter ;
                 :nameFirst "Peter" ;
                 :nameLast "Grieber" ;
-                :yearBirth 1938 .
+                :yearBirth 1938 ;
+                rdfs:comment """In e-mail responses to questions, Petropoulos told ARTnews his version of the story. After the meeting in Zurich, he said, he thought he and Griebert had an oral agreement with Fischer: “Peter Griebert and I thought we had come to an understanding with Frau Fischer about how we would be compensated for our efforts. Note that I made three trips to Europe since December in an effort to try to help recover the painting and also invested hundreds of hours of my own time.”
+
+Petropoulos, who is preparing a book about Lohse, said he had believed that the Pissarro was owned by a Swiss collector whose name was not disclosed to him: “I still don’t know who owned the painting before.” He said that he never thought Griebert might be involved in the activities of the Schönart Anstalt, and that he did not know that this enterprise had been set up by Lohse. In a separate e-mail, Petropoulos said that he had consulted three lawyers who had “all assured me that I was following accepted practices.”""" ;
+                rdfs:seeAlso "https://www.lootedart.com/news.php?r=MKP0SS308951" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#HarvardArtMuseums
@@ -1581,6 +1600,15 @@ At the Museum of Cultural History, we facilitate encounters and promote understa
        :name "Paris" .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#PartnershipGreibertLohse
+:PartnershipGreibertLohse rdf:type owl:NamedIndividual ,
+                                   :Partnership ;
+                          :ending <http://waysysweb.com/ontolgoy/lootedart#2007_03> ;
+                          :partner :Griebert_Peter ;
+                          rdfs:comment "He (Lohse) set himself up as an art dealer in Munich to supplement the benefits he received from the German government as a former “prisoner of war”. Petropoulos’s research sheds important light on the post-war networks, radiating from Munich to Switzerland, Paris and even the US, that allowed Lohse to stay in business. His Munich circle encompassed Göring’s daughter Edda and the Reichsmarschall’s former secretary, Gisela Limberger." ;
+                          rdfs:seeAlso "https://www.theartnewspaper.com/feature/bruno-lohse-who-supplied-hermann-goering-with-paintings-stolen-from-french-jews-explored-in-new-book" .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#SaleRedHorses1939
 :SaleRedHorses1939 rdf:type owl:NamedIndividual ,
                             :Sale ;
@@ -1782,6 +1810,13 @@ This painting was on loan to the Busch-Reisinger Museum from 1991-2014.""" ;
 ###  http://waysysweb.com/ontolgoy/lootedart#1981_10
 <http://waysysweb.com/ontolgoy/lootedart#1981_10> rdf:type owl:NamedIndividual ,
                                                            :PointInTime .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#2007_03
+<http://waysysweb.com/ontolgoy/lootedart#2007_03> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime ;
+                                                  :month 03 ;
+                                                  :year 2007 .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#2014_01
