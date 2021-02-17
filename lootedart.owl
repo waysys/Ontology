@@ -320,6 +320,11 @@
            rdfs:comment "An art collection is started by a party." .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#thingDisplayed
+:thingDisplayed rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :propertyDisposition .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#thingOffered
 :thingOffered rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf :propertyDisposition ;
@@ -599,6 +604,12 @@ Art works have a creator.""" .
                          owl:someValuesFrom :PointInTime
                        ] ;
        rdfs:comment "An event is an occurrance of a thing at a point in time." .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Exhibition
+:Exhibition rdf:type owl:Class ;
+            rdfs:subClassOf :Event ;
+            rdfs:comment "A public display of works of art" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#Family
@@ -974,12 +985,32 @@ Art works have a creator.""" .
                      :Role .
 
 
+###  http://waysysweb.com/ontolgoy/lootedart#CollectionDegenerateArt
+:CollectionDegenerateArt rdf:type owl:NamedIndividual ,
+                                  :ArtCollection ;
+                         :name "Degenerate Art" ;
+                         :yearFounded 1937 ;
+                         rdfs:comment "In 1937, the German Government under Hitler decided, that, under Hitler's instructions, much modern German art was classified as \"degenerate\" (not fitting to be called art in Hitler's view) and was confiscated from museums all over Germany. A travelling Degenerate Art Exhibition was set up where some of these pieces were displayed to the public to show their so-called \"degenerate\" nature. The government then decided that a system would be set up to sell as many as possible of the confiscated items abroad to raise hard currency for Government coffers. Four dealers, including Gurlitt, were then given permission to trade such pieces, seeking overseas buyers in return for an agent's commission (the others being Karl Buchholz, Ferdinand Möller and Bernhard Böhmer). When such pieces failed to sell, as was frequently the case, Gurlitt and others were often able, legitimately or illicitly, to add them to their personal collections, or purchase them for a low value. Gurlitt's name appears against many of the entries on a listing compiled by the Ministry of Propaganda and now held by the Victoria and Albert Museum that provides details of the fate of each object, including whether it was exchanged, sold or destroyed.[2]" ;
+                         rdfs:seeAlso "https://en.wikipedia.org/wiki/Gurlitt_Collection" .
+
+
 ###  http://waysysweb.com/ontolgoy/lootedart#CollectionGoring
 :CollectionGoring rdf:type owl:NamedIndividual ,
                            :ArtCollection ;
                   :owner :Goring_Herman ;
                   :startedBy :Goring_Herman ;
                   :name "Goring Collection" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CollectionGurlitt
+:CollectionGurlitt rdf:type owl:NamedIndividual ,
+                            :ArtCollection ;
+                   :alternateName "Gurlitt Hoard" ;
+                   :name "Gurlitt Collection" ;
+                   rdfs:comment "Far from being mostly lost in the war as Gurlitt had claimed, around 1,500 artworks remained in Gurlitt's possession at the time of his death, passing to his wife Helene and thence to their son Cornelius (with some to his sister Renate) following her own death in 1964. They remained in the younger generation of Gurlitts' possession for over four decades out of public knowledge, although Cornelius is known to have sold eleven works via the Galerie Kornfeld in Bern, Switzerland, in 1988, and possibly four others in 1990,[31] as well as Max Beckmann's The Lion Tamer which sold at auction in 2011, with the proceeds split between Cornelius and a relative of the painting's original Jewish owners. Helene had earlier sold three paintings, including Picasso's Portrait of a Woman with Two Noses, via the auction house of Ketterer in Stuttgart in 1960, plus offered Bar, Brown by Max Beckmann, which failed to sell; Cornelius later subsequently sold the same painting via Ketterer again in 1972.[32] In 2007, August Macke's Woman with a Parrot, also with a Hildebrand Gurlitt provenance, was sold in Berlin via the auction house Villa Grisebach for €2 million;[33] the seller was an unnamed German collector, suspected by investigative author Catherine Hickey to have been Cornelius' sister Renate (Benita).[34]" ;
+                   rdfs:isDefinedBy "The Gurlitt Collection (alternatively known as the \"Gurlitt Trove\", \"Gurlitt Hoard\", \"Munich Art Hoard\", \"Schwabing Art Trove\", etc.) was a collection of around 1,500 art works assembled by the late German art dealer Hildebrand Gurlitt (1895–1956) which was passed first to his wife, Helene, and on her death to their son, Cornelius Gurlitt, who died in 2014." ;
+                   rdfs:seeAlso "https://en.wikipedia.org/wiki/Gurlitt_Collection" ,
+                                "https://en.wikipedia.org/wiki/Hildebrand_Gurlitt" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#CollectionSchloss
@@ -989,6 +1020,12 @@ Art works have a creator.""" .
                    :name "Schloss Collection" ;
                    rdfs:comment "Regarded as one of the last great Dutch art collections to be assembled in 19th century France, the Schloss Collection was curated by internationally renowned French art collector, Adolphe Schloss and contained many paintings from Dutch and Flemish masters including Rubens, Rembrandt, and Ruysdael. It also became known as one of the best examples of acquisition for Hitler’s Führermuseum by forced sale during World War II." ;
                    rdfs:seeAlso "https://unwritten-record.blogs.archives.gov/2015/11/17/the-lost-paintings-the-schloss-art-collection/" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#CommissionExploitationDegenerateArt
+:CommissionExploitationDegenerateArt rdf:type owl:NamedIndividual ,
+                                              :GovernmentOrganization ;
+                                     :name "Commission for the Exploitation of Degenerate Art" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#Cooper_Douglas
@@ -1022,6 +1059,7 @@ Ineligible for active service in the British Army due to an eye injury, Cooper j
 ###  http://waysysweb.com/ontolgoy/lootedart#Dietrich_Maria
 :Dietrich_Maria rdf:type owl:NamedIndividual ,
                          :Person ;
+                :agentFor :Fuhremuseum ;
                 :nationality :DE ;
                 :occupation :ArtDealer ;
                 :nameFirst "Maria" ;
@@ -1146,6 +1184,16 @@ Ineligible for active service in the British Army due to an eye injury, Cooper j
                          :beginning <http://waysysweb.com/ontolgoy/lootedart#1886_01> ;
                          :employedBy :FischerVerlag ;
                          :role :Founder .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#ExhibitionDegenerateArt
+:ExhibitionDegenerateArt rdf:type owl:NamedIndividual ,
+                                  :Exhibition ;
+                         :atDate <http://waysysweb.com/ontolgoy/lootedart#1937_07> ;
+                         :alternateName "Entartete Kunst" ;
+                         :name "Degenerate Art" ;
+                         rdfs:comment "The Degenerate Art Exhibition (German: Die Ausstellung \"Entartete Kunst\") was an art exhibition organized by Adolf Ziegler and the Nazi Party in Munich from 19 July to 30 November 1937. The exhibition presented 650 works of art, confiscated from German museums, and was staged in counterpoint to the concurrent Great German Art Exhibition.[1] The day before the exhibition started, Hitler delivered a speech declaring \"merciless war\" on cultural disintegration, attacking \"chatterboxes, dilettantes and art swindlers\".[1] Degenerate art was defined as works that \"insult German feeling, or destroy or confuse natural form or simply reveal an absence of adequate manual and artistic skill\".[1] One million people attended the exhibition in its first six weeks.[1] A U.S. critic commented \"there are probably plenty of people—art lovers—in Boston, who will side with Hitler in this particular purge\".[1]" ;
+                         rdfs:seeAlso "https://theculturetrip.com/europe/germany/articles/30-degenerate-artworks/" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#FR
@@ -1359,11 +1407,11 @@ By 1941, Göring was at the peak of his power and influence. As the Second World
                rdfs:seeAlso "https://en.wikipedia.org/wiki/Hermann_G%C3%B6ring" .
 
 
-###  http://waysysweb.com/ontolgoy/lootedart#Grebert_Benno
-:Grebert_Benno rdf:type owl:NamedIndividual ,
-                        :Person ;
-               :nameFirst "Benno" ;
-               :nameLast "Griebert" .
+###  http://waysysweb.com/ontolgoy/lootedart#Griebert_Benno
+:Griebert_Benno rdf:type owl:NamedIndividual ,
+                         :Person ;
+                :nameFirst "Benno" ;
+                :nameLast "Griebert" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#Griebert_Peter
@@ -1371,6 +1419,7 @@ By 1941, Göring was at the peak of his power and influence. As the Second World
                          :Person ;
                 :nationality :DE ;
                 :occupation :ArtDealer ;
+                :parent :Griebert_Benno ;
                 :partner :Griebert_Peter ;
                 :nameFirst "Peter" ;
                 :nameLast "Grieber" ;
@@ -1379,6 +1428,21 @@ By 1941, Göring was at the peak of his power and influence. As the Second World
 
 Petropoulos, who is preparing a book about Lohse, said he had believed that the Pissarro was owned by a Swiss collector whose name was not disclosed to him: “I still don’t know who owned the painting before.” He said that he never thought Griebert might be involved in the activities of the Schönart Anstalt, and that he did not know that this enterprise had been set up by Lohse. In a separate e-mail, Petropoulos said that he had consulted three lawyers who had “all assured me that I was following accepted practices.”""" ;
                 rdfs:seeAlso "https://www.lootedart.com/news.php?r=MKP0SS308951" .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#Gurlitt_Hildebrand
+:Gurlitt_Hildebrand rdf:type owl:NamedIndividual ,
+                             :Person ;
+                    :agentFor :Fuhremuseum ;
+                    :memberOf :CommissionExploitationDegenerateArt ;
+                    :nationality :DE ;
+                    :occupation :ArtDealer ;
+                    :nameFirst "Hildebrand" ;
+                    :nameLast "Gurlitt" ;
+                    :yearBirth 1895 ;
+                    :yearDeath 1956 ;
+                    rdfs:comment "Hildebrand Gurlitt (15 September 1895 – 9 November 1956) was a Nazi German art historian, art gallery director and subsequently, Nazi-associated art dealer, and war profiteer, who traded in \"degenerate art\" during the Nazi era, and purchased paintings in Nazi-occupied France, many of them stolen from their original owners, for Hitler's planned Führermuseum (which was never built) and for himself.[1] He also inherited family artworks from both his father and his sister, an accomplished artist in her own right. Following World War II and the denazification process he became Director of the Art Association for the Rhineland and Westphalia, until his death in a car accident at the age of 61. His personal collection of over 1,500 items, including works by Claude Monet, Pierre-Auguste Renoir, Paul Cézanne, Paul Gauguin, Henri Matisse, Eugène Delacroix, Henri de Toulouse-Lautrec, Franz Marc, Marc Chagall, Édouard Manet, Camille Pissarro, Auguste Rodin, Otto Dix, Edvard Munch, Gustave Courbet, Max Liebermann, Wassily Kandinsky and Paul Klee, among many others, remained virtually unknown until it was brought to public attention in 2013 following its confiscation from the possession of his son, Cornelius Gurlitt,[2][3] who, although never reunited with the collection, bequeathed it upon his death in 2014 to the Museum of Fine Arts Bern in Switzerland." ;
+                    rdfs:seeAlso "https://en.wikipedia.org/wiki/Hildebrand_Gurlitt" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#HarvardArtMuseums
@@ -1495,8 +1559,10 @@ Such strength of purpose is particularly apparent in the paintings of 1911.
 
 In Red Horses, the depiction is sufficiently simplified so as to allow the color to be paramount. The dynamic red of the horses suggested that Marc intended to emphasize an earthly orientation for this particular group of animals. The white area surmounting the pyramidally arranged horses can be understood as symbolizing purity or solace in comparison to the rest of the canvas. To interpret Marc's use of green in the upper third of the painting with regard to his thoughts on color is also enlightening. He said that once green in introduced, \"You never entirely bring the eternally material, brutal red to rest.\" In that spirit, the horses seem nervous beyond all possibility of resolution. Only the blue, as Marc prescribed, lends a peaceful note to the agitated atmosphere.
 
-While Marc has employed in Red Horses an absolutely arbitrary palette, he has not sought to flatten color to planes as the Fauves had done. Rather, he retains an illusionistic portrayal within which he seeks to form a rich color composition that reflects the vitality of his subject. The principal achievement in Red Horses is this depiction of the uninhibited energy of nature using completely naturalistic colors. Vitality by viutue of a coloristic boldness recalls Henri Matisse, particularly in The Dance, a works chosen by Marc and Kandinsky sometime in 1911 for reproduction in the yearbook of the Blue Rider group, entitled Der Blaue Reiter. As in Matisses's canvas, unification of figure and ground is accomplished by repeating curves; the effect of a dance in the arrangement of the horses can be confirmed by an earlier versions of this work.""" ;
-            rdfs:seeAlso "https://www.franzmarc.org/biography.jsp" .
+While Marc has employed in Red Horses an absolutely arbitrary palette, he has not sought to flatten color to planes as the Fauves had done. Rather, he retains an illusionistic portrayal within which he seeks to form a rich color composition that reflects the vitality of his subject. The principal achievement in Red Horses is this depiction of the uninhibited energy of nature using completely naturalistic colors. Vitality by viutue of a coloristic boldness recalls Henri Matisse, particularly in The Dance, a works chosen by Marc and Kandinsky sometime in 1911 for reproduction in the yearbook of the Blue Rider group, entitled Der Blaue Reiter. As in Matisses's canvas, unification of figure and ground is accomplished by repeating curves; the effect of a dance in the arrangement of the horses can be confirmed by an earlier versions of this work.""" ,
+                         "Like Van Gogh, Franz Marc also died years before the Nazis came into power; he was killed during World War I. A painter by trade before the outbreak of the Great War, Marc initially enlisted as a cavalryman. However, shortly afterward, he was commissioned to paint military camouflage canvas covers, intended to hide artillery from aerial observation. One of his most famous paintings today is The Fate of Animals, shown here. Marc actually painted this in 1913, before the outbreak of the war; once mobilized in war, Marc said in a letter to his wife that the chaos depicted in this painting was ‘like a premonition of this war – horrible and shattering. I can hardly conceive that I painted it.’ This certainly may help to explain why this particular work was among those seized by the Nazis years later and classed as Degenerate Art." ;
+            rdfs:seeAlso "https://theculturetrip.com/europe/germany/articles/30-degenerate-artworks/" ,
+                         "https://www.franzmarc.org/biography.jsp" .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#MobelAktion
@@ -1734,6 +1800,11 @@ This painting was on loan to the Busch-Reisinger Museum from 1991-2014.""" ;
                                                            :PointInTime ;
                                                   :month 01 ;
                                                   :year 1911 .
+
+
+###  http://waysysweb.com/ontolgoy/lootedart#1937_07
+<http://waysysweb.com/ontolgoy/lootedart#1937_07> rdf:type owl:NamedIndividual ,
+                                                           :PointInTime .
 
 
 ###  http://waysysweb.com/ontolgoy/lootedart#1939_06
